@@ -8,15 +8,23 @@ const ControlsPage = (): JSX.Element => {
   const { socket } = useSelector((state: RootState) => state.presentation);
 
   const handlePrevious = () => {
-    socket.emit('move_slide', -1);
+    socket.emit('move_slide', {
+      data: -1,
+      room: 1,
+    });
   }
 
   const handleNext = () => {
-    socket.emit('move_slide', 1);
+    socket.emit('move_slide', {
+      data: 1,
+      room: 1,
+    });
   }
 
   const handleReset = () => {
-    socket.emit('reset_presentation');
+    socket.emit('reset_presentation', {
+      room: 1,
+    });
   }
 
   return (

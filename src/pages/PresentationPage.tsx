@@ -7,9 +7,14 @@ import { RootState } from '../redux/rootReducer';
 import presentationActions from '../redux/actions/presentationActions';
 
 const PresentationPage = (): JSX.Element => {
-  const { socket, currentSlideNumber } = useSelector((state: RootState) => state.presentation);
+  const { socket, currentRoom, currentSlideNumber } = useSelector((state: RootState) => state.presentation);
   const dispatch = useDispatch();
 
+  useEffect(() => {
+    socket.emit('join_presentation', currentRoom);
+    console.log(currentRoom);
+  }, []);
+  
   useEffect(() => {
     socket.on('move_slide', (data: number) => {
       dispatch({
@@ -19,7 +24,9 @@ const PresentationPage = (): JSX.Element => {
     });
 
     socket.on('reset_presentation', () => {
-      console.log(`Reset Presentation`);
+      dispatch({
+        type: presentationActions.RESET_PRESENTATION,
+      });
     });
   }, [socket]);
 
