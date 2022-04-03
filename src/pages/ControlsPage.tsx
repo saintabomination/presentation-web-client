@@ -1,14 +1,33 @@
+import { useSelector } from 'react-redux';
+
 import DefaultLayout from '../layouts/DefaultLayout';
 
-const ControlsPage = (): JSX.Element =>
-  (
+import { RootState } from '../redux/rootReducer';
+
+const ControlsPage = (): JSX.Element => {
+  const { socket } = useSelector((state: RootState) => state.presentation);
+
+  const handlePrevious = () => {
+    socket.emit('move_slide', -1);
+  }
+
+  const handleNext = () => {
+    socket.emit('move_slide', 1);
+  }
+
+  const handleReset = () => {
+    socket.emit('reset_presentation');
+  }
+
+  return (
     <DefaultLayout>
       <h1>Controls Page</h1>
       <p>For development purposes only.</p>
-      <button>Previous slide</button>
-      <button>Next Slide</button>
-      <button>Reset</button>
+      <button onClick={() => handlePrevious()}>Previous slide</button>
+      <button onClick={() => handleNext()}>Next Slide</button>
+      <button onClick={() => handleReset()}>Reset</button>
     </DefaultLayout>
   );
+}
 
 export default ControlsPage;
