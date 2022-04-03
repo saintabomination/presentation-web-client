@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import DefaultLayout from '../layouts/DefaultLayout';
@@ -9,16 +10,18 @@ const PresentationPage = (): JSX.Element => {
   const { socket, currentSlideNumber } = useSelector((state: RootState) => state.presentation);
   const dispatch = useDispatch();
 
-  socket.on('move_slide', (data: number) => {
-    dispatch({
-      type: presentationActions.MOVE_SLIDE,
-      payload: data,
+  useEffect(() => {
+    socket.on('move_slide', (data: number) => {
+      dispatch({
+        type: presentationActions.MOVE_SLIDE,
+        payload: data,
+      });
     });
-  });
 
-  socket.on('reset_presentation', () => {
-    console.log(`Reset Presentation`);
-  });
+    socket.on('reset_presentation', () => {
+      console.log(`Reset Presentation`);
+    });
+  }, [socket]);
 
   return (
     <DefaultLayout>
