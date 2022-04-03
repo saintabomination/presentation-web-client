@@ -1,5 +1,4 @@
 import DefaultLayout from '../layouts/DefaultLayout';
-import { io } from 'socket.io-client';
 
 const PresentationPage = (): JSX.Element =>
   (
