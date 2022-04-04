@@ -54,7 +54,7 @@ const presentation = {
 };
 
 const PresentationPage = (): JSX.Element => {
-  const { socket, currentRoom } = useSelector((state: RootState) => state.presentation);
+  const { socket, currentRoom, currentSlideNumber } = useSelector((state: RootState) => state.presentation);
   const dispatch = useDispatch();
 
   if (currentRoom === -1) return <Navigate to="/presentation" replace />;
@@ -80,7 +80,7 @@ const PresentationPage = (): JSX.Element => {
 
   return (
     <DefaultLayout>
-      <Presentation presentation={presentation} />
+      <Presentation presentation={presentation} slideNumber={currentSlideNumber} />
     </DefaultLayout>
   );
 }
