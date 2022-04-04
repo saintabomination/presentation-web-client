@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { Navigate } from 'react-router-dom';
 
 import DefaultLayout from '../layouts/DefaultLayout';
 
@@ -9,6 +10,8 @@ import presentationActions from '../redux/actions/presentationActions';
 const PresentationPage = (): JSX.Element => {
   const { socket, currentRoom, currentSlideNumber } = useSelector((state: RootState) => state.presentation);
   const dispatch = useDispatch();
+
+  if (currentRoom === -1) return <Navigate to="/presentation" replace />;
 
   useEffect(() => {
     socket.emit('join_presentation', currentRoom);
