@@ -14,6 +14,8 @@ const DefaultLayout = ({ children }: DefaultLayoutProps): JSX.Element =>
         <li><Link to="/presentation">Join</Link></li>
       </ul>
       {children}
+      <hr />
+      <p>saintabomination &copy; 2022</p>
     </>
   );
 
