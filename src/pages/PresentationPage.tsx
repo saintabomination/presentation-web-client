@@ -2,7 +2,6 @@ import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Navigate } from 'react-router-dom';
 
-import DefaultLayout from '../layouts/DefaultLayout';
 import Presentation from '../components/Presentation';
 
 import { RootState } from '../redux/rootReducer';
@@ -65,10 +64,12 @@ const PresentationPage = (): JSX.Element => {
   
   useEffect(() => {
     socket.on('move_slide', (data: number) => {
-      dispatch({
-        type: presentationActions.MOVE_SLIDE,
-        payload: data,
-      });
+      if (currentSlideNumber + data >= 0 && currentSlideNumber + data < presentation.slides.length + 1) {
+        dispatch({
+          type: presentationActions.MOVE_SLIDE,
+          payload: data,
+        });
+      }
     });
 
     socket.on('reset_presentation', () => {
@@ -79,9 +80,7 @@ const PresentationPage = (): JSX.Element => {
   }, [socket]);
 
   return (
-    <DefaultLayout>
-      <Presentation presentation={presentation} slideNumber={currentSlideNumber} />
-    </DefaultLayout>
+    <Presentation presentation={presentation} slideNumber={currentSlideNumber} />
   );
 }
 
