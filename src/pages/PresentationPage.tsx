@@ -1,9 +1,10 @@
-import { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { Component } from 'react';
+import { connect } from 'react-redux';
 import { Navigate } from 'react-router-dom';
 
 import Presentation from '../components/Presentation';
 
+import { Dispatch } from 'redux';
 import { RootState } from '../redux/rootReducer';
 import presentationActions from '../redux/actions/presentationActions';
 
@@ -52,6 +53,7 @@ const presentation = {
   ],
 };
 
+/*
 const PresentationPage = (): JSX.Element => {
   const { socket, currentRoom, currentSlideNumber } = useSelector((state: RootState) => state.presentation);
   const dispatch = useDispatch();
@@ -83,5 +85,37 @@ const PresentationPage = (): JSX.Element => {
     <Presentation presentation={presentation} slideNumber={currentSlideNumber} />
   );
 }
+*/
 
-export default PresentationPage;
+class PresentationPage extends Component<any, any> {
+  constructor(props: any) {
+    super(props);
+  }
+
+  componentDidMount() {
+    console.log(this.props);
+    this.props.socket.emit('join_presentation', this.props.currentRoom);
+    this.props.socket.on('move_slide', () => console.log('a'));
+  }
+
+  render() {
+    return (
+      <Presentation presentation={presentation} />
+    );
+  }
+}
+
+const mapStateToProps = (state: RootState) => {
+  return state.presentation;
+}
+
+const mapDispatchToProps = (dispatch: Dispatch) => {
+  return {
+    moveSlide: (data: number) => dispatch({
+      type: presentationActions.MOVE_SLIDE,
+      data: data,
+    }),
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(PresentationPage);
