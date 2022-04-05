@@ -8,6 +8,7 @@ import { Dispatch } from 'redux';
 import { RootState } from '../redux/rootReducer';
 import presentationActions from '../redux/actions/presentationActions';
 
+// Sample Presentation JSON
 const presentation = {
   slides: [
     {
@@ -53,40 +54,6 @@ const presentation = {
   ],
 };
 
-/*
-const PresentationPage = (): JSX.Element => {
-  const { socket, currentRoom, currentSlideNumber } = useSelector((state: RootState) => state.presentation);
-  const dispatch = useDispatch();
-
-  if (currentRoom === -1) return <Navigate to="/presentation" replace />;
-
-  useEffect(() => {
-    socket.emit('join_presentation', currentRoom);
-  }, []);
-  
-  useEffect(() => {
-    socket.on('move_slide', (data: number) => {
-      if (currentSlideNumber + data >= 0 && currentSlideNumber + data < presentation.slides.length + 1) {
-        dispatch({
-          type: presentationActions.MOVE_SLIDE,
-          payload: data,
-        });
-      }
-    });
-
-    socket.on('reset_presentation', () => {
-      dispatch({
-        type: presentationActions.RESET_PRESENTATION,
-      });
-    });
-  }, [socket]);
-
-  return (
-    <Presentation presentation={presentation} slideNumber={currentSlideNumber} />
-  );
-}
-*/
-
 class PresentationPage extends Component<any, any> {
   constructor(props: any) {
     super(props);
@@ -109,6 +76,8 @@ class PresentationPage extends Component<any, any> {
   }
 
   render() {
+    if (this.props.currentRoom === -1) return <Navigate to="/presentation" replace />;
+
     return (
       <Presentation presentation={presentation} slideNumber={this.props.currentSlideNumber} />
     );
