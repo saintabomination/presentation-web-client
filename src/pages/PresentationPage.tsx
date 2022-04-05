@@ -92,15 +92,25 @@ class PresentationPage extends Component<any, any> {
     super(props);
   }
 
-  componentDidMount() {
+  moveSlide = (data: number) => {
+    this.props.moveSlide(data);
     console.log(this.props);
+  }
+
+  resetPresentation = () => {
+    this.props.resetPresentation();
+    console.log(this.props);
+  }
+
+  componentDidMount() {
     this.props.socket.emit('join_presentation', this.props.currentRoom);
-    this.props.socket.on('move_slide', () => console.log('a'));
+    this.props.socket.on('move_slide', (data: number) => this.moveSlide(data));
+    this.props.socket.on('reset_presentation', () => this.resetPresentation());
   }
 
   render() {
     return (
-      <Presentation presentation={presentation} />
+      <Presentation presentation={presentation} slideNumber={this.props.currentSlideNumber} />
     );
   }
 }
@@ -113,7 +123,10 @@ const mapDispatchToProps = (dispatch: Dispatch) => {
   return {
     moveSlide: (data: number) => dispatch({
       type: presentationActions.MOVE_SLIDE,
-      data: data,
+      payload: data,
+    }),
+    resetPresentation: () => dispatch({
+      type: presentationActions.RESET_PRESENTATION,
     }),
   };
 }
