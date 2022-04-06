@@ -47,6 +47,10 @@ class PresentationPage extends Component<any, any> {
 
   render() {
     if (this.props.currentRoom === -1) return <Navigate to="/presentation" replace />;
+    if (!this.state.presentation) {
+      alert('That presentation does not exist.');
+      return <Navigate to="/presentation" replace />;
+    }
 
     return (
       <Presentation presentation={this.state.presentation} slideNumber={this.props.currentSlideNumber} />
