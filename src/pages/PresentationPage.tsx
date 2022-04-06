@@ -9,6 +9,8 @@ import { Dispatch } from 'redux';
 import { RootState } from '../redux/rootReducer';
 import presentationActions from '../redux/actions/presentationActions';
 
+/* eslint-disable  @typescript-eslint/no-explicit-any */
+
 class PresentationPage extends Component<any, any> {
   constructor(props: any) {
     super(props);
