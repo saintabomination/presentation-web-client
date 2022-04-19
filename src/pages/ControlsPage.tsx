@@ -3,9 +3,8 @@ import { io } from 'socket.io-client';
 
 import DefaultLayout from '../layouts/DefaultLayout';
 
-const socket = io('localhost:3001');
-
 const ControlsPage = (): JSX.Element => {
+  const socket = io('localhost:3001');
   const [roomId, setRoomId] = useState(0);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {

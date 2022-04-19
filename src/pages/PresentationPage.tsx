@@ -12,14 +12,13 @@ import presentationActions from '../redux/actions/presentationActions';
 
 /* eslint-disable  @typescript-eslint/no-explicit-any */
 
-const socket = io('http://localhost:3001');
-
 class PresentationPage extends Component<any, any> {
   constructor(props: any) {
     super(props);
 
     this.state = {
-      presentation: { slides: []}
+      presentation: { slides: []},
+      socket: io('http://localhost:3001'),
     }
   }
 
@@ -32,9 +31,9 @@ class PresentationPage extends Component<any, any> {
   }
 
   componentDidMount() {
-    socket.emit('join_presentation', this.props.currentRoom);
-    socket.on('move_slide', (data: number) => this.moveSlide(data));
-    socket.on('reset_presentation', () => this.resetPresentation());
+    this.state.socket.emit('join_presentation', this.props.currentRoom);
+    this.state.socket.on('move_slide', (data: number) => this.moveSlide(data));
+    this.state.socket.on('reset_presentation', () => this.resetPresentation());
 
     axios.get(`http://localhost:3002/get_presentation?id=${this.props.currentRoom}`)
       .then(res => {
@@ -45,7 +44,7 @@ class PresentationPage extends Component<any, any> {
   }
   
   componentWillUnmount() {
-    this.props.socket.emit('leave_presentation', this.props.currentRoom);
+    this.state.socket.emit('leave_presentation', this.props.currentRoom);
   }
 
   render() {
