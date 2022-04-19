@@ -23,7 +23,8 @@ class PresentationPage extends Component<any, any> {
   }
 
   moveSlide = (data: number) => {
-    this.props.moveSlide(data);
+    if (this.props.currentSlideNumber + data < this.state.presentation.slides.length && this.props.currentSlideNumber + data >= 0)
+      this.props.moveSlide(data);
   }
 
   resetPresentation = () => {
