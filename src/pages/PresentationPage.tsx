@@ -1,6 +1,7 @@
 import { Component } from 'react';
 import { connect } from 'react-redux';
 import { Navigate } from 'react-router-dom';
+import { io } from 'socket.io-client';
 import axios from 'axios';
 
 import Presentation from '../components/Presentation';
@@ -10,6 +11,8 @@ import { RootState } from '../redux/rootReducer';
 import presentationActions from '../redux/actions/presentationActions';
 
 /* eslint-disable  @typescript-eslint/no-explicit-any */
+
+const socket = io('http://localhost:3001');
 
 class PresentationPage extends Component<any, any> {
   constructor(props: any) {
@@ -29,9 +32,9 @@ class PresentationPage extends Component<any, any> {
   }
 
   componentDidMount() {
-    this.props.socket.emit('join_presentation', this.props.currentRoom);
-    this.props.socket.on('move_slide', (data: number) => this.moveSlide(data));
-    this.props.socket.on('reset_presentation', () => this.resetPresentation());
+    socket.emit('join_presentation', this.props.currentRoom);
+    socket.on('move_slide', (data: number) => this.moveSlide(data));
+    socket.on('reset_presentation', () => this.resetPresentation());
 
     axios.get(`http://localhost:3002/get_presentation?id=${this.props.currentRoom}`)
       .then(res => {

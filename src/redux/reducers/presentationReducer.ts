@@ -1,15 +1,11 @@
-import { Socket, io } from 'socket.io-client';
-
 import presentationActions from '../actions/presentationActions';
 
 interface InitialStateDefaultObject {
-  socket: Socket;
   currentRoom: number;
   currentSlideNumber: number;
 }
 
 const INITIAL_STATE: InitialStateDefaultObject = {
-  socket: io('http://localhost:3001'),
   currentRoom: -1,
   currentSlideNumber: 0,
 };
