@@ -1,21 +1,27 @@
 import { x } from '@xstyled/styled-components';
 
-import DefaultSlide from './DefaultSlide';
+import SlideFooter from './SlideComponents/SlideFooter';
 
 import { SlideType } from '../../types/presentationTypes';
 
-type SlideProps = {
+type SlideBaseProps = {
   slide: SlideType;
+  children: React.ReactNode;
 };
 
-const SlideBase = ({ slide }: SlideProps): JSX.Element =>
+const SlideBase = ({ slide, children }: SlideBaseProps): JSX.Element =>
   (
     <x.div
+      display="flex"
+      flexDirection="column"
       p={8}
       w="100%"
       h="100%"
     >
-      <DefaultSlide slide={slide} />
+      {children}
+      {slide.footer ? (
+        <SlideFooter entries={slide.footer} />
+      ) : null}
     </x.div>
   );
 

@@ -8,7 +8,9 @@ type SlideProps = {
 
 const DefaultSlide = ({ slide }: SlideProps): JSX.Element =>
   (
-    <x.div>
+    <x.div
+      w="100%"
+    >
       {slide.title ? <h1>{slide.title}</h1> : null}
       {slide.points ? (
         <ul>

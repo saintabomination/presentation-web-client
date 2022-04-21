@@ -3,6 +3,7 @@ export type SlideType = {
   title?: string;
   subtitle?: string;
   points?: string[];
+  footer?: string[];
 };
 
 export type PresentationType = {

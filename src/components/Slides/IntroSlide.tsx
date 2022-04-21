@@ -14,6 +14,7 @@ const IntroSlide = ({ slide }: SlideProps): JSX.Element =>
       justifyContent="center"
       alignItems="center"
       w="100%"
+      h="100%"
     >
       {slide.title ? <h1>{slide.title}</h1> : null}
       {slide.subtitle ? <h3>{slide.subtitle}</h3> : null}
