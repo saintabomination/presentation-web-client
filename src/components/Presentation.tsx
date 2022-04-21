@@ -1,6 +1,7 @@
 import { x } from '@xstyled/styled-components';
 
-import Slide from './Slide';
+import DefaultSlide from './Slides/DefaultSlide';
+import IntroSlide from './Slides/IntroSlide';
 
 import { PresentationType } from '../types/presentationTypes';
 
@@ -16,8 +17,15 @@ const Presentation = ({ presentation, slideNumber = 0 }: PresentationProps): JSX
       h="100vh"
     >
       {presentation.slides.slice(slideNumber, slideNumber + 1).map(
-        (slide, index) =>
-        <Slide key={index} slide={slide} />
+        (slide, index) => {
+          switch (slide.type) {
+            case 'intro':
+              return <IntroSlide key={index} slide={slide} />;
+
+            default:
+              return <DefaultSlide key={index} slide={slide} />;
+          }
+        }
       )}
     </x.div>
   );

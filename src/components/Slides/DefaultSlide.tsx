@@ -1,18 +1,14 @@
 import { x } from '@xstyled/styled-components';
 
-import { SlideType } from '../types/presentationTypes';
+import { SlideType } from '../../types/presentationTypes';
 
 type SlideProps = {
   slide: SlideType;
 };
 
-const Slide = ({ slide }: SlideProps): JSX.Element =>
+const DefaultSlide = ({ slide }: SlideProps): JSX.Element =>
   (
-    <x.div
-      p={8}
-      w="100%"
-      h="100%"
-    >
+    <x.div>
       {slide.title ? <h1>{slide.title}</h1> : null}
       {slide.points ? (
         <ul>
@@ -25,4 +21,4 @@ const Slide = ({ slide }: SlideProps): JSX.Element =>
     </x.div>
   );
 
-export default Slide;
+export default DefaultSlide;
