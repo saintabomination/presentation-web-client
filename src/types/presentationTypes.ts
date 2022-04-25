@@ -3,6 +3,9 @@ export type SlideType = {
   title?: string;
   subtitle?: string;
   points?: string[];
+  backgroundImage?: string;
+  darkenValue?: number;
+  slideColor?: string;
   footer?: string[];
 };
 

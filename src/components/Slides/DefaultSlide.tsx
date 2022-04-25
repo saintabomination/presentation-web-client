@@ -10,6 +10,7 @@ const DefaultSlide = ({ slide }: SlideProps): JSX.Element =>
   (
     <x.div
       w="100%"
+      zIndex={2}
     >
       {slide.title ? <h1>{slide.title}</h1> : null}
       {slide.points ? (

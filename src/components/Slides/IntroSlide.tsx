@@ -15,6 +15,7 @@ const IntroSlide = ({ slide }: SlideProps): JSX.Element =>
       alignItems="center"
       w="100%"
       h="100%"
+      zIndex={2}
     >
       {slide.title ? <h1>{slide.title}</h1> : null}
       {slide.subtitle ? <h3>{slide.subtitle}</h3> : null}

@@ -11,6 +11,7 @@ const SlideFooter = ({ entries }: SlideFooterProps): JSX.Element =>
       justifyContent="space-between"
       alignItems="center"
       w="100%"
+      zIndex={5}
     >
       {entries.map(
         (entry, index) =>
